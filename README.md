@@ -4,7 +4,7 @@ A multithreaded key-value server built from scratch in Java. Clients connect ove
 
 ## Why Sharding
 
-A single global lock serializes all operations — 100 threads contending on one lock spend most of their time waiting. `ConcurrentHashMap` solves this with internal striping, but it's a black box: you don't control the concurrency level, can't tune lock granularity, and can't separate read/write contention. Sharding with explicit `ReentrantReadWriteLock` per shard gives you that control. Reads within a shard don't block each other, writes only block their own shard, and the shard count is a tunable knob. The benchmark results below show the difference clearly.
+I built this to learn multithreading and concurrency from first principles. Sharding was chosen as the concurrency strategy because it forces you to think about lock granularity, read-write contention, and how data partitioning affects throughput. Implementing it manually with an array of `HashMap`s and per-shard `ReentrantReadWriteLock`s made the tradeoffs concrete: a single lock serializes everything, too many shards waste memory, and separating read/write locks matters when your workload isn't 50/50.
 
 ## Architecture
 
