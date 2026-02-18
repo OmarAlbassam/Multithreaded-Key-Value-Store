@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DataStore<T> {
 
-    private final int NUM_SHARDS = 10; // decide to be number of cores - m1 pro -> 10 cores
+    public static final int NUM_SHARDS = 10; // made it static so its printed in the test
     private final HashMap<String, String>[] shards;
     private final ReadWriteLock[] locks;
 
