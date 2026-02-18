@@ -1,10 +1,14 @@
+package Benchmarks;
+
+import Logic.DataStore;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DirectBenchmark {
 
     private static final int NUM_THREADS = 100;
-    private static final int OPS_PER_THREAD = 6000;
+    private static final int OPS_PER_THREAD = 60000;
 
     public static void main(String[] args) throws Exception {
         DataStore<String> dataStore = new DataStore<>();
@@ -13,7 +17,7 @@ public class DirectBenchmark {
         AtomicInteger failureCount = new AtomicInteger(0);
 
         System.out.println("Starting direct benchmark with " + NUM_THREADS + " threads, " + OPS_PER_THREAD + " cycles each...");
-        System.out.println("No TCP overhead — calling DataStore.handler() directly.");
+        System.out.println("No TCP overhead — calling Logic.DataStore.handler() directly.");
 
         long startTime = System.currentTimeMillis();
 

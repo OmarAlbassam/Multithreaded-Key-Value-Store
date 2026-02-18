@@ -1,3 +1,5 @@
+package Logic;
+
 public class Message {
     private String operation;
     private String key;

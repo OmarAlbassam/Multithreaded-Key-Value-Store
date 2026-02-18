@@ -1,3 +1,5 @@
+package Server;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -23,7 +25,7 @@ public class ServerThread implements Runnable {
             PrintWriter out_socket = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()), true);
             
             // Initial message to the client
-            out_socket.println("Welcome to Omar Key Value Server!");
+            out_socket.println("Welcome to Omar Key Value Server.Server!");
             
             // Read and process multiple messages
             String message;
@@ -36,7 +38,7 @@ public class ServerThread implements Runnable {
                     break;
                 }
                 
-                // Process the message through DataStore and send result
+                // Process the message through Logic.DataStore and send result
                 String result = dataStore.handler(message);
                 out_socket.println(result);
             }
