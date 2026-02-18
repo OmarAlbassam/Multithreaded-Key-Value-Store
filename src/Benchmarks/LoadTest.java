@@ -1,10 +1,10 @@
 package Benchmarks;
 
+import Logic.DataStore;
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
-
 public class LoadTest {
 
     private static final int NUM_CLIENTS = 100;

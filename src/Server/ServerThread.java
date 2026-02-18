@@ -2,6 +2,7 @@ package Server;
 
 import java.io.*;
 import java.net.Socket;
+import Logic.DataStore;
 
 public class ServerThread implements Runnable {
     private Socket socket; // Client socket
