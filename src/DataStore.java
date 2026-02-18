@@ -12,7 +12,7 @@ public class DataStore<T> {
     public String handler(String message) {
         Massege mappedMassege = mapMessage(message);
 
-        switch (mappedMassege.getOperation()) {
+        switch (mappedMassege.getOperation().toUpperCase()) {
             case "GET": return handleGet(mappedMassege);
             case "SET": return handleSet(mappedMassege);
             case "DEL": return handleDel(mappedMassege);
