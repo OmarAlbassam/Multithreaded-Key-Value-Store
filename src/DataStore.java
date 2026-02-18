@@ -19,47 +19,47 @@ public class DataStore<T> {
     }
 
     public String handler(String message) {
-        Massege mappedMassege = mapMessage(message);
+        Message mappedMessage = mapMessage(message);
 
-        switch (mappedMassege.getOperation().toUpperCase()) {
+        switch (mappedMessage.getOperation().toUpperCase()) {
             case "GET":
-                return handleGet(mappedMassege);
+                return handleGet(mappedMessage);
             case "SET":
-                return handleSet(mappedMassege);
+                return handleSet(mappedMessage);
             case "DEL":
-                return handleDel(mappedMassege);
+                return handleDel(mappedMessage);
             default:
                 return "Error";
         }
     }
 
-    private Massege mapMessage(String message) {
+    private Message mapMessage(String message) {
         String temp[] = message.split(" ");
         if (temp.length == 2) {
-            return new Massege(temp[0], temp[1], null);
+            return new Message(temp[0], temp[1], null);
         }
-        return new Massege(temp[0], temp[1], temp[2]);
+        return new Message(temp[0], temp[1], temp[2]);
     }
 
-    private String handleSet(Massege mappedMassege) {
+    private String handleSet(Message mappedMessage) {
         // to get which hashmap - hashcode the key -> module with number of shards -> hashmap array index
-        int index = Math.abs(mappedMassege.getKey().hashCode()) % NUM_SHARDS;
+        int index = Math.abs(mappedMessage.getKey().hashCode()) % NUM_SHARDS;
         try {
             locks[index].writeLock().lock();
-            shards[index].put(mappedMassege.getKey(), mappedMassege.getValue());
+            shards[index].put(mappedMessage.getKey(), mappedMessage.getValue());
         } finally {
             locks[index].writeLock().unlock();
         }
         return "OK";
     }
 
-    private String handleGet(Massege mappedMassege) {
+    private String handleGet(Message mappedMessage) {
         // to get which hashmap - hashcode the key -> module with number of shards -> hashmap array index
-        int index = Math.abs(mappedMassege.getKey().hashCode()) % NUM_SHARDS;
+        int index = Math.abs(mappedMessage.getKey().hashCode()) % NUM_SHARDS;
         String value;
         try {
             locks[index].readLock().lock();
-            value = shards[index].get(mappedMassege.getKey());
+            value = shards[index].get(mappedMessage.getKey());
             if (value == null) {
                 return "NOT FOUND";
             }
@@ -69,13 +69,13 @@ public class DataStore<T> {
         return value;
     }
 
-    private String handleDel(Massege mappedMassege) {
+    private String handleDel(Message mappedMessage) {
         // to get which hashmap - hashcode the key -> module with number of shards -> hashmap array index
-        int index = Math.abs(mappedMassege.getKey().hashCode()) % NUM_SHARDS;
+        int index = Math.abs(mappedMessage.getKey().hashCode()) % NUM_SHARDS;
 
         try {
         locks[index].writeLock().lock();
-        String removed = shards[index].remove(mappedMassege.getKey());
+        String removed = shards[index].remove(mappedMessage.getKey());
         if (removed != null) {
             return "Deleted!";
         }

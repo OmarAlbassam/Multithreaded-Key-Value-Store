@@ -1,10 +1,10 @@
-public class Massege {
+public class Message {
     private String operation;
     private String key;
     private String value;
 
     // Constructor
-    public Massege(String operation, String key, String value) {
+    public Message(String operation, String key, String value) {
         this.operation = operation;
         this.key = key;
         this.value = value;
