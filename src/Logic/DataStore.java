@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class DataStore<T> {
+public class DataStore {
 
     public static final int NUM_SHARDS = 10; // made it static so its printed in the test
     private final HashMap<String, String>[] shards;

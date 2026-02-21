@@ -10,7 +10,7 @@ public class StoreBenchmark {
     private static final int OPS_PER_THREAD = 60000;
 
     public static void main(String[] args) throws Exception {
-        DataStore<String> dataStore = new DataStore<>();
+        DataStore dataStore = new DataStore();
         CountDownLatch latch = new CountDownLatch(NUM_THREADS);
         AtomicInteger successCount = new AtomicInteger(0);
         AtomicInteger failureCount = new AtomicInteger(0);
